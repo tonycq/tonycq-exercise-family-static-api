@@ -5,14 +5,17 @@ import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
-from datastructure import FamilyStructure
+from datastructures import FamilyStructure
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 CORS(app)
 
-# create the jackson family object
+# create the jackson family object with initial members
 jackson_family = FamilyStructure("Jackson")
+jackson_family.add_member({"first_name": "John", "age": 33, "lucky_numbers": [7, 13, 22]})
+jackson_family.add_member({"first_name": "Jane", "age": 35, "lucky_numbers": [10, 14, 3]})
+jackson_family.add_member({"first_name": "Jimmy", "age": 5, "lucky_numbers": [1]})
 
 # Handle/serialize errors like a JSON object
 @app.errorhandler(APIException)
